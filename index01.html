@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sourabh Mind Games</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style01.css">
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="game-box">
+    <h1>🌈 Sourabh Mind Games</h1>
+    <p class="tagline">Think Fast • Match Smart • Win Big 🧠✨</p>
+
+    <div class="players">
+        <div class="player active" id="p1">👦 Player 1 <span id="s1">0</span></div>
+        <div class="player" id="p2">👧 Player 2 <span id="s2">0</span></div>
+    </div>
+
+    <div class="turn-box">
+        🎯 Turn: <span id="turn">Player 1</span>
+    </div>
+
+    <p class="sound-tip">🔊 Click once anywhere to enable sound</p>
+
+    <div class="game-grid" id="grid"></div>
+
+    <button class="restart" onclick="restartGame()">🔄 Restart Game</button>
+
+    <p class="footer">🚀 Beginner Project • Pro Level Feel</p>
+</div>
+
+<!-- Sounds -->
+<audio id="flip" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
+<audio id="match" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+<audio id="wrong" src="https://assets.mixkit.co/sfx/preview/mixkit-retro-arcade-lose-2027.mp3"></audio>
+
+<script>
+/* 🔊 SOUND UNLOCK */
+let soundOn = false;
+const flip = document.getElementById("flip");
+const match = document.getElementById("match");
+const wrong = document.getElementById("wrong");
+
+document.addEventListener("click", () => {
+    if (!soundOn) {
+        flip.play().then(() => {
+            flip.pause();
+            flip.currentTime = 0;
+            soundOn = true;
+        });
+    }
+}, { once: true });
+
+/* 🎮 GAME DATA */
+const emojis = ['🚀','🌈','🔥','🎯','💎','⚡','🎮','👑'];
+let cards = [...emojis, ...emojis];
+
+let first = null;
+let second = null;
+let lock = false;
+
+let player = 1;
+let score1 = 0;
+let score2 = 0;
+
+const grid = document.getElementById("grid");
+const turn = document.getElementById("turn");
+
+function shuffle(arr) {
+    return arr.sort(() => Math.random() - 0.5);
+}
+
+function createGame() {
+    grid.innerHTML = "";
+    shuffle(cards);
+
+    cards.forEach(e => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+            <div class="inner">
+                <div class="front">❓</div>
+                <div class="back">${e}</div>
+            </div>
+        `;
+        card.onclick = () => flipCard(card);
+        grid.appendChild(card);
+    });
+}
+
+function flipCard(card) {
+    if (lock || card === first || card.classList.contains("done")) return;
+
+    if (soundOn) flip.play();
+    card.classList.add("flip");
+
+    if (!first) {
+        first = card;
+        return;
+    }
+
+    second = card;
+    checkMatch();
+}
+
+function checkMatch() {
+    const a = first.querySelector(".back").innerText;
+    const b = second.querySelector(".back").innerText;
+
+    if (a === b) {
+        if (soundOn) match.play();
+        first.classList.add("done");
+        second.classList.add("done");
+
+        if (player === 1) {
+            score1++;
+            document.getElementById("s1").innerText = score1;
+        } else {
+            score2++;
+            document.getElementById("s2").innerText = score2;
+        }
+
+        reset();
+        checkWinner();
+    } else {
+        if (soundOn) wrong.play();
+        lock = true;
+        setTimeout(() => {
+            first.classList.remove("flip");
+            second.classList.remove("flip");
+            changePlayer();
+            reset();
+        }, 1000);
+    }
+}
+
+function changePlayer() {
+    player = player === 1 ? 2 : 1;
+    turn.innerText = "Player " + player;
+    document.getElementById("p1").classList.toggle("active");
+    document.getElementById("p2").classList.toggle("active");
+}
+
+function reset() {
+    [first, second, lock] = [null, null, false];
+}
+
+function checkWinner() {
+    if (document.querySelectorAll(".done").length === cards.length) {
+        setTimeout(() => {
+            if (score1 > score2) alert("👑 Player 1 is the Mind King!");
+            else if (score2 > score1) alert("👑 Player 2 is the Mind Queen!");
+            else alert("🤝 Match Draw! Both are Genius!");
+        }, 300);
+    }
+}
+
+function restartGame() {
+    score1 = score2 = 0;
+    document.getElementById("s1").innerText = 0;
+    document.getElementById("s2").innerText = 0;
+    player = 1;
+    turn.innerText = "Player 1";
+    document.getElementById("p1").classList.add("active");
+    document.getElementById("p2").classList.remove("active");
+    createGame();
+}
+
+createGame();
+</script>
+
+</body>
+</html>

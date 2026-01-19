@@ -1,0 +1,280 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1a2a6c, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Animated stars */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#fff 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: move 20s linear infinite;
+    opacity: 0.2;
+}
+
+@keyframes move {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; }
+}
+
+.game-box {
+    background: linear-gradient(145deg, #ff00cc, #3333ff);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 0 40px #ff00cc;
+    width: 380px;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.tagline {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.players {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.player {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 10px;
+    border-radius: 15px;
+}
+
+.player.active {
+    background: #00ffcc;
+    color: #000;
+    font-weight: bold;
+}
+
+.turn-box {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.sound-tip {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.card {
+    height: 70px;
+    perspective: 800px;
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flip .inner {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.front {
+    background: linear-gradient(135deg, #ffeb3b, #ff5722);
+}
+
+.back {
+    background: #fff;
+    color: #000;
+    transform: rotateY(180deg);
+}
+
+.card.done .inner {
+    box-shadow: 0 0 15px #00ffcc;
+}
+
+.restart {
+    background: linear-gradient(135deg, #00ffcc, #00bcd4);
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.footer {
+    font-size: 11px;
+    margin-top: 8px;
+    opacity: 0.9;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1a2a6c, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Animated stars */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(#fff 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: move 20s linear infinite;
+    opacity: 0.2;
+}
+
+@keyframes move {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; }
+}
+
+.game-box {
+    background: linear-gradient(145deg, #ff00cc, #3333ff);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 0 40px #ff00cc;
+    width: 380px;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.tagline {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.players {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.player {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 10px;
+    border-radius: 15px;
+}
+
+.player.active {
+    background: #00ffcc;
+    color: #000;
+    font-weight: bold;
+}
+
+.turn-box {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.sound-tip {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.card {
+    height: 70px;
+    perspective: 800px;
+}
+
+.inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card.flip .inner {
+    transform: rotateY(180deg);
+}
+
+.front, .back {
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    position: absolute;
+    backface-visibility: hidden;
+}
+
+.front {
+    background: linear-gradient(135deg, #ffeb3b, #ff5722);
+}
+
+.back {
+    background: #fff;
+    color: #000;
+    transform: rotateY(180deg);
+}
+
+.card.done .inner {
+    box-shadow: 0 0 15px #00ffcc;
+}
+
+.restart {
+    background: linear-gradient(135deg, #00ffcc, #00bcd4);
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.footer {
+    font-size: 11px;
+    margin-top: 8px;
+    opacity: 0.9;
+}
